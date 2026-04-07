@@ -3,12 +3,13 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   background: linear-gradient(to right, rgb(83, 24, 160), rgb(42, 25, 139));
 }
-  
-.habit_card{
+
+.habit_card {
   max-width: 400px;
   color: white;
   border: 3px solid black;
@@ -19,23 +20,28 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;         
-  margin-top: -370px;    
+  height: 100vh;
+  margin-top: -370px;
 }
 
-.add_habit button{
+.add_habit button {
   height: 50px;
   width: 100px;
   border-radius: 50px;
-  border: none;  
+  border: none;
   cursor: pointer;
 }
 
-.isCompleted{
+.habit_card.completed {
+  background-color: #2e7d23;
+  text-decoration: line-through;
+}
+
+.isCompleted {
   height: 25px;
   width: 60px;
   border-radius: 30px;
-  border: none;  
+  border: none;
   cursor: pointer;
 }
 

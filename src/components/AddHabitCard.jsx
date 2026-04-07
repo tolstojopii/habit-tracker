@@ -14,8 +14,13 @@ const AddHabitCard = ({ onAdd }) => {
       <button
         onClick={() => {
           if (name.trim()) {
-            onAdd({ id: Date.now(), name: name, completed:false, date: new Date().toISOString().split('T')[0] });
-            setName('')
+            onAdd({
+              id: Date.now(),
+              name: name,
+              completedDates: [],
+              date: new Date().toISOString().split("T")[0],
+            });
+            setName("");
           }
         }}
       >
