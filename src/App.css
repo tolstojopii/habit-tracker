@@ -6,30 +6,99 @@
 html,
 body {
   height: 100%;
-  background: linear-gradient(to right, rgb(83, 24, 160), rgb(42, 25, 139));
+  background: linear-gradient(to right, rgb(11, 4, 78), rgb(28, 2, 90));
+}
+
+.habits_container {
+  display: flex;
+  min-width: 300px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 }
 
 .habit_card {
-  max-width: 400px;
+  width: 300px;
+  padding-inline: 25px;
+  padding-block: 15px;
+  margin: 10px;
+  border: 1px solid rgb(95, 78, 78);
+  border-radius: 15px;
   color: white;
-  border: 3px solid black;
-  background-color: rgb(97, 17, 11);
+  background: linear-gradient(to right, rgb(74, 28, 182), rgb(45, 26, 214));
+  box-shadow:
+    0px 0px 30px 15px rgb(71, 17, 197),
+    0px 0px 30px 10px rgb(31, 13, 194);
+}
+
+.habit_card p {
+  padding-block: 15px;
+}
+
+.habit_card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 30px;
+  color: rgb(158, 158, 255);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.habit_card button {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: 1px solid rgb(95, 78, 78);
+  justify-self: center;
+  cursor: pointer;
+  background: linear-gradient(to right, rgb(185, 132, 255), rgb(127, 140, 255));
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+}
+.habit_card button:hover {
+  background: linear-gradient(to right, rgb(116, 185, 119), rgb(26, 185, 60));
+  transform: translateY(-3px);
 }
 
 .add_habit {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin-top: -370px;
+  height: 30vh;
 }
 
 .add_habit button {
   height: 50px;
   width: 100px;
   border-radius: 50px;
-  border: none;
   cursor: pointer;
+  box-shadow: 0px 0px 30px 10px rgb(67, 114, 245);
+  border: none;
+  background-color: rgb(11, 4, 78);
+  text-align: center;
+  color: gray;
+  transition: 0.4s ease;
+}
+
+.add_habit button:hover {
+  transform: translateY(-4px);
+  background-color: rgb(67, 114, 245);
+  color: white;
+  box-shadow: 0px 0px 10px 10px rgb(67, 114, 245);
+}
+
+.add_habit input {
+  height: 50px;
+  margin-right: 50px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px 10px rgb(67, 114, 245);
+  border: none;
+  background-color: rgb(11, 4, 78);
+  text-align: center;
+  color: white;
+  transition: 0.4s ease;
 }
 
 .habit_card.completed {

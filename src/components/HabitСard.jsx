@@ -9,10 +9,10 @@ const HabitCard = (props) => {
 
   return (
     <div className={`habit_card ${isCompleted ? "completed" : ""}`}>
-      <h2>{habit.name}</h2>
+      <h2><b>{habit.name}</b></h2>
       <p>Старт: {habit.date}</p>
       <button onClick={() => onToggle(habit.id, today)}>
-        {isCompleted ? "Отменить" : "Сделано"}
+        {isCompleted ? "Пошутил" : "Отметить"}
       </button>
     </div>
   );

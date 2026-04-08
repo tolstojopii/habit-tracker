@@ -29,44 +29,41 @@ function App() {
     }
     return streak;
   };
-}
 
-const toggleComplete = (habitId, todayDate) => {
-  setHabits((prevHabits) =>
-    prevHabits.map((habit) =>
-      habit.id === habitId
-        ? {
-            ...habit,
-            completedDates: habit.completedDates.includes(todayDate)
-              ? habit.completedDates.filter((d) => d !== todayDate)
-              : [...habit.completedDates, todayDate],
-          }
-        : habit,
-    ),
+  const toggleComplete = (habitId, todayDate) => {
+    setHabits((prevHabits) =>
+      prevHabits.map((habit) =>
+        habit.id === habitId
+          ? {
+              ...habit,
+              completedDates: habit.completedDates.includes(todayDate)
+                ? habit.completedDates.filter((d) => d !== todayDate)
+                : [...habit.completedDates, todayDate],
+            }
+          : habit,
+      ),
+    );
+  };
+
+  useEffect(() => {
+    localStorage.setItem("habits", JSON.stringify(habits));
+  }, [habits]);
+
+  return (
+    <>
+      <AddHabitCard onAdd={addHabit} />
+      <div className="habits_container">
+      {habits.map((habit) => (
+        <HabitCard
+          key={habit.id}
+          habit={habit}
+          onToggle={toggleComplete}
+          streak={calculatorStreak}
+        />
+      ))}
+      </div>
+    </>
   );
-};
-
-useEffect(
-  () => localStorage.setItem("habits", JSON.stringify(habits)),
-  [habits],
-);
-
-useEffect(() => {
-  localStorage.setItem("habits", JSON.stringify(habits));
-}, [habits]);
-
-return (
-  <>
-    <AddHabitCard onAdd={addHabit} />
-    {habits.map((habit) => (
-      <HabitCard
-        key={habit.id}
-        habit={habit}
-        onToggle={toggleComplete}
-        streak={calculatorStreak}
-      />
-    ))}
-  </>
-);
+}
 
 export default App;
