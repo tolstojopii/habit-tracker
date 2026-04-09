@@ -9,6 +9,8 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
+
+
   const addHabit = (newHabit) => {
     setHabits([...habits, newHabit]);
   };
@@ -45,6 +47,11 @@ function App() {
     );
   };
 
+   const deleteHabit = (id) => {
+    setHabits(prevHabits => prevHabits.filter(habit => habit.id !== id));
+   }
+
+
   useEffect(() => {
     localStorage.setItem("habits", JSON.stringify(habits));
   }, [habits]);
@@ -58,9 +65,10 @@ function App() {
           key={habit.id}
           habit={habit}
           onToggle={toggleComplete}
-          streak={calculatorStreak}
+          calculatorStreak={calculatorStreak}
+          onDelete={deleteHabit}
         />
-      ))}
+      ))} 
       </div>
     </>
   );

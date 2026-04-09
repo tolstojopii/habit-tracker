@@ -10,14 +10,16 @@ const AddHabitCard = ({ onAdd }) => {
         placeholder="Название привычки"
         onChange={(e) => setName(e.target.value)}
         value={name}
+        style={{fontFamily:"cursive"}}
       />
       <button
+      style={{fontFamily:"cursive"}}
         onClick={() => {
           if (name.trim()) {
             onAdd({
               id: Date.now(),
               name: name,
-              completedDates: [],
+              completedDates: ['э2345234'],
               date: new Date().toISOString().split("T")[0],
             });
             setName("");

@@ -7,6 +7,7 @@ html,
 body {
   height: 100%;
   background: linear-gradient(to right, rgb(11, 4, 78), rgb(28, 2, 90));
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .habits_container {
@@ -19,9 +20,8 @@ body {
 }
 
 .habit_card {
-  width: 300px;
-  padding-inline: 25px;
-  padding-block: 15px;
+  padding-inline: 30px;
+  padding-block: 20px;
   margin: 10px;
   border: 1px solid rgb(95, 78, 78);
   border-radius: 15px;
@@ -44,21 +44,47 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.habit_card button {
+.mark-btn {
   height: 35px;
   width: 125px;
   border-radius: 8px;
-  border: 1px solid rgb(95, 78, 78);
+  border: none;
   justify-self: center;
   cursor: pointer;
-  background: linear-gradient(to right, rgb(185, 132, 255), rgb(127, 140, 255));
+  background: linear-gradient(to right, rgb(96, 233, 114), rgb(139, 146, 209));
   color: white;
   font-weight: bolder;
   font-size: 15px;
   transition: 0.4s ease;
+  margin-inline: 15px;
 }
-.habit_card button:hover {
+
+.delete-btn{
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  justify-self: center;
+  cursor: pointer;
+  background: linear-gradient(to right, rgb(131, 84, 84), rgb(245, 0, 0));
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+  margin-inline: 15px;
+}
+
+.mark-btn:hover {
   background: linear-gradient(to right, rgb(116, 185, 119), rgb(26, 185, 60));
+  box-shadow: 0px 0px 15px 10px rgb(66, 167, 66);
+  border: none;
+  transform: translateY(-3px);
+}
+
+.delete-btn:hover{
+  background: linear-gradient(to right, rgb(231, 5, 5), rgb(224, 67, 67));
+  box-shadow: 0px 0px 15px 10px rgb(197, 42, 4);
+  border: none;
   transform: translateY(-3px);
 }
 
@@ -120,4 +146,20 @@ body {
 }
 .habit_card.completed h2 {
   text-decoration: line-through;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.habits_container,
+.add_habit {
+  animation: fadeInUp 1s ease-out;
 }
