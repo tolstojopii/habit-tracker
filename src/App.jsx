@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import AddHabitCard from "./components/AddHabitCard";
 import HabitCard from "./components/HabitСard";
+import EditModal from "./components/EditModal";
 
 function App() {
   const [habits, setHabits] = useState(() => {
     const saved = localStorage.getItem("habits");
     return saved ? JSON.parse(saved) : [];
   });
-
-
 
   const addHabit = (newHabit) => {
     setHabits([...habits, newHabit]);
@@ -47,10 +46,25 @@ function App() {
     );
   };
 
-   const deleteHabit = (id) => {
-    setHabits(prevHabits => prevHabits.filter(habit => habit.id !== id));
-   }
+  const editHabit = (habitId, newName) => {
+    setHabits((prevHabits) =>
+      prevHabits.map((habit) =>
+        habit.id === habitId ? { ...habit, name: newName } : habit,
+      ),
+    );
+  };
 
+  const deleteHabit = (id) => {
+    setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== id));
+  };
+
+  const updateHabitStyle = (habitId, updates) => {
+    setHabits((prevHabits) =>
+      prevHabits.map((habit) =>
+        habit.id === habitId ? { ...habit, ...updates } : habit,
+      ),
+    );
+  };
 
   useEffect(() => {
     localStorage.setItem("habits", JSON.stringify(habits));
@@ -60,15 +74,17 @@ function App() {
     <>
       <AddHabitCard onAdd={addHabit} />
       <div className="habits_container">
-      {habits.map((habit) => (
-        <HabitCard
-          key={habit.id}
-          habit={habit}
-          onToggle={toggleComplete}
-          calculatorStreak={calculatorStreak}
-          onDelete={deleteHabit}
-        />
-      ))} 
+        {habits.map((habit) => (
+          <HabitCard
+            key={habit.id}
+            habit={habit}
+            onToggle={toggleComplete}
+            calculatorStreak={calculatorStreak}
+            onDelete={deleteHabit}
+            onEdit={editHabit}
+            onUpdateStyle={updateHabitStyle}
+          />
+        ))}
       </div>
     </>
   );
