@@ -6,9 +6,65 @@
 html,
 body {
   height: 100%;
-
   background-color: #07070f;
-  font-family: "Courier New", Courier, monospace;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #07070f;
+  backdrop-filter: blur(12px);
+  padding: 15px 30px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.header-left {
+  display: flex;
+  gap: 5vh;
+  flex: 1;
+}
+
+.header-right {
+  display: flex;
+  gap: 5vh;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-center h1 {
+  color: #00ffff;
+  font-size: 36px;
+  margin-bottom: 5px;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+.header-center p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 26px;
+}
+
+.header-left a, .header-right a {
+  text-decoration: none;
+  font-size: 24px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: #e0e0ff;
+  background-color: #080810;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.header-left a:hover, .header-right a:hover {
+  background-color: #00ffff;
+  color: #0a0a1a;
+  box-shadow: 0 0 12px #00ffff;
+  transform: translateY(-2px);
 }
 
 .habits_container {
@@ -153,7 +209,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vh;
+  height: 15vh;
+  margin-top: 20px;
 }
 
 .add_habit button {
@@ -429,7 +486,7 @@ body {
   transform: scale(1.08);
 }
 
-.modal_cancel_btn:hover{
+.modal_cancel_btn:hover {
   background-color: rgb(184, 45, 52);
   transform: scale(1.08);
 }

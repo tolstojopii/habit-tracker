@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import EditModal from "./EditModal";
+import ExpandedModal from "./ExpandedModal";
 
 const HabitCard = (props) => {
   const { habit, onToggle, calculatorStreak, onDelete, onEdit, onUpdateStyle } =
@@ -7,7 +8,8 @@ const HabitCard = (props) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState("");
-  const [showModal, setShowModal] = useState(false); // для модалки
+  const [showModal, setShowModal] = useState(false);
+  const [showExpanded, setShowExpanded] = useState(false);
 
   const inputRef = useRef(null);
 
@@ -31,7 +33,7 @@ const HabitCard = (props) => {
         style={{
           fontFamily: habit.fontFamily || "Arial",
           background: habit.cardColor || "rgb(15, 15, 27)",
-          boxShadow: `0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px ${habit.glowColor || "#6a3bc0"}`
+          boxShadow: `0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px ${habit.glowColor || "#6a3bc0"}`,
         }}
       >
         <button className="edit_btn" type="button" onClick={editing}>
@@ -66,7 +68,14 @@ const HabitCard = (props) => {
         <button className="delete-btn" onClick={() => onDelete(habit.id)}>
           Удалить
         </button>
+        <button
+          className="details_btn"
+          onClick={() => setShowExpanded(true)}
+        >Детали</button>
       </div>
+      {showExpanded && (
+        <ExpandedModal habit={habit} onClose={() => setShowExpanded(false)} />
+      )}
       {showModal && (
         <EditModal
           habit={habit}

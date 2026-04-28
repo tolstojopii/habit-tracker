@@ -3,6 +3,8 @@ import "./App.css";
 import AddHabitCard from "./components/AddHabitCard";
 import HabitCard from "./components/HabitСard";
 import EditModal from "./components/EditModal";
+import Header from "./components/Header";
+import ExpandedModal from "./components/ExpandedModal";
 
 function App() {
   const [habits, setHabits] = useState(() => {
@@ -72,6 +74,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <AddHabitCard onAdd={addHabit} />
       <div className="habits_container">
         {habits.map((habit) => (
