@@ -1,0 +1,23 @@
+.emptyState{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.title{
+  color: #e2e2e6;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.description{
+  color: rgba(226, 226, 230, 0.6); 
+  font-size: 24px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+

@@ -1,0 +1,153 @@
+.wrapper {
+  position: relative;
+  margin: 20px 15px;
+}
+
+.editTrigger {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  right: 19px;
+  width: 40px;
+  height: 24px;
+  background: rgba(36, 36, 43, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(139, 157, 195, 0.3);
+  border-radius: 12px 12px 6px 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.editTrigger:hover {
+  background: rgba(139, 157, 195, 0.2);
+}
+
+.card {
+  padding-inline: 30px;
+  padding-block: 20px;
+  margin: 10px;
+  background: var(--card-bg, #24242b);
+  border: 1px solid rgba(139, 157, 195, 0.2);
+  border-radius: 15px;
+  color: #e2e2e6;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card.completed {
+  --card-bg: #2d4a2d;               /* более яркий зелёный, не полупрозрачный */
+  border-color: #4caf50;            /* зелёная обводка */
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.4);  /* лёгкое зелёное свечение */
+  opacity: 1;                       /* убери снижение прозрачности, если нужно */
+  position: relative;
+}
+
+.card.completed .habitName {
+  text-decoration: line-through;
+  color: rgba(226, 226, 230, 0.5);
+}
+
+.habitName {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 30px;
+  color: #e2e2e6;
+  text-shadow: none;
+}
+
+.text {
+  padding-block: 15px;
+  color: rgba(226, 226, 230, 0.8);
+}
+
+.editBtn {
+  margin-left: 94%;
+  background: rgba(36, 36, 43, 0.8);
+  border: 1px solid rgba(139, 157, 195, 0.3);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 10px;
+  color: #e2e2e6;
+  transition: 0.2s ease;
+}
+
+.editBtn:hover {
+  background: rgba(139, 157, 195, 0.2);
+}
+
+.editInput {
+  height: 30px;
+  margin-left: 62px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  box-shadow: none;
+  border: 1px solid rgba(139, 157, 195, 0.3);
+  background: rgba(36, 36, 43, 0.9);
+  text-align: center;
+  color: #e2e2e6;
+}
+
+.markBtn {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(51, 102, 51, 0.6);
+  color: #e2e2e6;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+  margin-inline: 15px;
+  border: 1px solid rgba(139, 157, 195, 0.2);
+}
+
+.markBtn:hover {
+  background: rgba(76, 153, 76, 0.8);
+  transform: translateY(-3px);
+  box-shadow: none;
+}
+
+.deleteBtn {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(180, 40, 40, 0.6);
+  color: #e2e2e6;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+  margin-inline: 15px;
+  border: 1px solid rgba(139, 157, 195, 0.2);
+}
+
+.deleteBtn:hover {
+  background: rgba(220, 60, 50, 0.8);
+  transform: translateY(-3px);
+  box-shadow: none;
+}
+
+.detailsBtn {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(139, 157, 195, 0.2);
+  color: #8b9dc3;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+  margin-inline: 15px;
+  border: 1px solid rgba(139, 157, 195, 0.3);
+}
+
+.detailsBtn:hover {
+  background: rgba(139, 157, 195, 0.3);
+  transform: translateY(-3px);
+  color: #e2e2e6;
+}

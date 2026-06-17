@@ -1,95 +1,163 @@
-import { useState, useEffect } from "react";
-import "./App.css";
-import AddHabitCard from "./components/AddHabitCard";
-import HabitCard from "./components/HabitСard";
-import EditModal from "./components/EditModal";
-import Header from "./components/Header";
-import ExpandedModal from "./components/ExpandedModal";
+import { useEffect, useState } from "react";
+import {
+  fetchHabits,
+  createHabit,
+  updateHabit,
+  deleteHabit as deleteHabitApi,
+  toggleHabitDay,
+} from "./api/habits";
+import Auth from "@/components/auth/Auth";
+import Header from "@/components/header/Header";
+import AddHabitCard from "@/components/addHabitCard/AddHabitCard";
+import HabitCard from "@/components/habitCard/HabitСard";
+import styles from "./App.module.css";
+import EmptyState from "./components/emptyState/EmptyState";
 
 function App() {
-  const [habits, setHabits] = useState(() => {
-    const saved = localStorage.getItem("habits");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [user, setUser] = useState(null);
+  const [habits, setHabits] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const addHabit = (newHabit) => {
-    setHabits([...habits, newHabit]);
+  // Проверяем токен при загрузке
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserProfile(token);
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchUserProfile = async (token) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+        await loadHabits();
+      } else {
+        localStorage.removeItem("token");
+      }
+    } catch (error) {
+      console.error("Ошибка получения профиля:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getPrevDate = (dateString) => {
-    const date = new Date(dateString);
-    date.setDate(date.getDate() - 1);
-    return date.toISOString().split("T")[0];
+  const addHabit = async (habit) => {
+    try {
+      const newHabit = await createHabit(habit);
+      setHabits([newHabit, ...habits]);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const calculatorStreak = (completedDates, todayDate) => {
+  const toggleHabit = async (id, today) => {
+    try {
+      const updateHabit = await toggleHabitDay(id, today);
+      setHabits(habits.map((habit) => (habit.id === id ? updateHabit : habit)));
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const deleteHabit = async (id) => {
+    try {
+      await deleteHabitApi(id);
+      setHabits(habits.filter((habit) => habit.id !== id));
+    } catch (error) {
+      alert(error.message);
+    }
+
+    // setHabits(habits.filter(habit => habit.id !== id));
+  };
+
+  const editHabit = async (id, newName) => {
+    try {
+      const updatedHabit = await updateHabit(id, { name: newName });
+      setHabits(
+        habits.map((habit) => (habit.id === id ? updatedHabit : habit)),
+      );
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const updateHabitStyle = async (id, styles) => {
+    try {
+      const updatedHabit = await updateHabit(id, styles);
+      setHabits(
+        habits.map((habit) => (habit.id === id ? updatedHabit : habit)),
+      );
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const calculatorStreak = (completedDates, today) => {
+    if (!completedDates.length) return 0;
+
     let streak = 0;
-    let currentDate = todayDate;
+    let currentDate = new Date(today);
 
-    while (completedDates.includes(currentDate)) {
+    while (completedDates.includes(currentDate.toISOString().split("T")[0])) {
       streak++;
-      currentDate = getPrevDate(currentDate);
+      currentDate.setDate(currentDate.getDate() - 1);
     }
     return streak;
   };
 
-  const toggleComplete = (habitId, todayDate) => {
-    setHabits((prevHabits) =>
-      prevHabits.map((habit) =>
-        habit.id === habitId
-          ? {
-              ...habit,
-              completedDates: habit.completedDates.includes(todayDate)
-                ? habit.completedDates.filter((d) => d !== todayDate)
-                : [...habit.completedDates, todayDate],
-            }
-          : habit,
-      ),
-    );
+  const loadHabits = async () => {
+    try {
+      const habitsData = await fetchHabits();
+      console.log("данные с сервера:", habitsData);
+      setHabits(habitsData);
+    } catch (error) {
+      console.error("Ошибка загрузки привычек:", error);
+    }
   };
 
-  const editHabit = (habitId, newName) => {
-    setHabits((prevHabits) =>
-      prevHabits.map((habit) =>
-        habit.id === habitId ? { ...habit, name: newName } : habit,
-      ),
-    );
-  };
-
-  const deleteHabit = (id) => {
-    setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== id));
-  };
-
-  const updateHabitStyle = (habitId, updates) => {
-    setHabits((prevHabits) =>
-      prevHabits.map((habit) =>
-        habit.id === habitId ? { ...habit, ...updates } : habit,
-      ),
-    );
-  };
-
-  useEffect(() => {
-    localStorage.setItem("habits", JSON.stringify(habits));
-  }, [habits]);
+  if (loading) {
+    return <div className={styles.loading}>Загрузка...</div>;
+  }
 
   return (
-    <>
-      <Header />
-      <AddHabitCard onAdd={addHabit} />
-      <div className="habits_container">
-        {habits.map((habit) => (
-          <HabitCard
-            key={habit.id}
-            habit={habit}
-            onToggle={toggleComplete}
-            calculatorStreak={calculatorStreak}
-            onDelete={deleteHabit}
-            onEdit={editHabit}
-            onUpdateStyle={updateHabitStyle}
-          />
-        ))}
+    <div className={styles.app}>
+      <div className={styles.content}>
+        {!user ? (
+          <Auth onLogin={(userData) => setUser(userData)} />
+        ) : (
+          <>
+            <Header onLogout={() => setUser(null)} />
+            <AddHabitCard onAdd={addHabit} />
+            <div className={styles.habitsContainer}>
+               {habits.length === 0 ? (
+                <EmptyState />
+              ) : (
+                habits.map((habit) => (
+                  <HabitCard
+                    key={habit.id}
+                    habit={habit}
+                    onToggle={toggleHabit}
+                    calculatorStreak={calculatorStreak}
+                    onDelete={deleteHabit}
+                    onEdit={editHabit}
+                    onUpdateStyle={updateHabitStyle}
+                  />
+                ))
+              )}
+            </div>
+          </>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 

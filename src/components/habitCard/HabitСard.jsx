@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
-import EditModal from "./EditModal";
-import ExpandedModal from "./ExpandedModal";
+import EditModal from "@/components/editModal/EditModal";
+import ExpandedModal from "@/components/expandedModal/ExpandedModal";
+import styles from "./habitCard.module.css";
 
 const HabitCard = (props) => {
   const { habit, onToggle, calculatorStreak, onDelete, onEdit, onUpdateStyle } =
@@ -14,8 +15,11 @@ const HabitCard = (props) => {
   const inputRef = useRef(null);
 
   const today = new Date().toISOString().split("T")[0];
-  const isCompleted = habit.completedDates.includes(today);
-  const streak = calculatorStreak(habit.completedDates, today);
+
+  // ✅ Используем completed_dates (как в БД)
+  const completedDates = habit.completed_dates || [];
+  const isCompleted = completedDates.includes(today);
+  const streak = calculatorStreak(completedDates, today);
 
   const editing = () => {
     setIsEditing(true);
@@ -24,24 +28,23 @@ const HabitCard = (props) => {
   };
 
   return (
-    <div className="habit_card_wrapper">
-      <div className="edit_trigger" onClick={() => setShowModal(true)}>
+    <div className={styles.wrapper}>
+      <div className={styles.editTrigger} onClick={() => setShowModal(true)}>
         ⚙️
       </div>
       <div
-        className={`habit_card ${isCompleted ? "completed" : ""}`}
+        className={`${styles.card} ${isCompleted ? styles.completed : ""}`}
         style={{
           fontFamily: habit.fontFamily || "Arial",
-          background: habit.cardColor || "rgb(15, 15, 27)",
-          boxShadow: `0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px ${habit.glowColor || "#6a3bc0"}`,
+          "--card-bg": habit.cardColor || "#24242b",
         }}
       >
-        <button className="edit_btn" type="button" onClick={editing}>
+        <button className={styles.editBtn} type="button" onClick={editing}>
           ✏️
         </button>
         {isEditing ? (
           <input
-            className="edit_input"
+            className={styles.editInput}
             ref={inputRef}
             type="text"
             value={newName}
@@ -56,22 +59,27 @@ const HabitCard = (props) => {
             }}
           />
         ) : (
-          <h2>
+          <h2 className={styles.habitName}>
             <b>{habit.name}</b>
           </h2>
         )}
-        <p>Старт: {habit.date}</p>
-        <p>Серия: {streak} дней</p>
-        <button className="mark-btn" onClick={() => onToggle(habit.id, today)}>
-          {habit.completedDates.includes(today) ? "Пошутил" : "Отметить"}
+        <p className={styles.text}>Старт: {new Date(habit.date).toLocaleDateString('ru-RU')}</p>
+        <p className={styles.text}>Серия: {streak} дней</p>
+        <button
+          className={styles.markBtn}
+          onClick={() => onToggle(habit.id, today)}
+        >
+          {completedDates.includes(today) ? "Пошутил" : "Отметить"}
         </button>
-        <button className="delete-btn" onClick={() => onDelete(habit.id)}>
+        <button className={styles.deleteBtn} onClick={() => onDelete(habit.id)}>
           Удалить
         </button>
         <button
-          className="details_btn"
+          className={styles.detailsBtn}
           onClick={() => setShowExpanded(true)}
-        >Детали</button>
+        >
+          Детали
+        </button>
       </div>
       {showExpanded && (
         <ExpandedModal habit={habit} onClose={() => setShowExpanded(false)} />

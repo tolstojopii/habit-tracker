@@ -1,0 +1,224 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.content {
+  background: rgba(25, 25, 40, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+  min-width: 400px;
+}
+
+.title {
+  margin-block: 5px;
+  font-size: 30px;
+}
+
+.label {
+  font-size: 20px;
+}
+
+.select {
+  height: 40px;
+  width: 120px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(100, 100, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(30, 30, 50, 0.7);
+  color: white;
+  transition: 0.4s ease;
+  margin-top: 15px;
+}
+
+.select:hover {
+  border-color: rgba(100, 100, 255, 0.6);
+}
+
+.select:focus {
+  outline: none;
+  border-color: rgba(100, 100, 255, 0.8);
+  box-shadow: 0 0 8px rgba(100, 100, 255, 0.4);
+}
+
+.select option {
+  background: #1a1a2e;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  border: none;
+}
+
+.select option:checked {
+  color: #09ff00;
+}
+
+.buttons {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 20px;
+  height: 20px;
+}
+
+.cancelBtn {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  justify-self: center;
+  cursor: pointer;
+  background: rgba(180, 40, 40, 0.7);
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cancelBtn:hover {
+  background-color: rgb(184, 45, 52);
+  transform: scale(1.08);
+}
+
+.saveBtn {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  justify-self: center;
+  cursor: pointer;
+  background: rgba(46, 125, 50, 0.7);
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
+  transition: 0.4s ease;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.saveBtn:hover {
+  background-color: rgb(58, 151, 72);
+  transform: scale(1.08);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 24px;
+  width: 50px;
+  height: 370px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 15;
+}
+
+.arrowLeft {
+  left: -70px;
+}
+
+.arrowRight {
+  right: -70px;
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.dot.active {
+  background: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+  transform: scale(1.2);
+}
+
+.colorPicker {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: transparent;
+  margin-left: 15px;
+}
+
+.colorPreview {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  margin-top: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.glowPreview {
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 15px;
+  transition: all 0.2s ease;
+}
+
+.step {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.nextBtn {
+  height: 35px;
+  width: 125px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(0, 200, 255, 0.6);
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.nextBtn:hover {
+  background: rgba(0, 200, 255, 0.9);
+  transform: scale(1.08);
+}

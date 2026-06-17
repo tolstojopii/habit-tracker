@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect, use } from "react";
+import { useState, useRef, useEffect } from "react";
+import styles from "./addHabitCard.module.css";
 
 const AddHabitCard = ({ onAdd }) => {
   const [name, setName] = useState("");
-
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -10,28 +10,25 @@ const AddHabitCard = ({ onAdd }) => {
   }, []);
 
   return (
-    <div className="add_habit">
+    <div className={styles.container}>
       <input
         type="text"
         ref={inputRef}
+        className={styles.input}
         placeholder="Название привычки"
-        onChange={(e) => setName(e.target.value)}
         value={name}
-        style={{ fontFamily: "cursive" }}
+        onChange={(e) => setName(e.target.value)}
       />
       <button
-        style={{ fontFamily: "cursive" }}
+        className={styles.button}
         onClick={() => {
           if (name.trim()) {
             onAdd({
-              id: Date.now(),
               name: name,
-              completedDates: [],
               date: new Date().toISOString().split("T")[0],
-              fontFamily: "Arial", 
-              cardColor: "#1e1e3a",
+              fontFamily: "Arial",
+              cardColor: "#24242b",
               glowColor: "#6a3bc0",
-              backgroundImage: null,
             });
             setName("");
           }
